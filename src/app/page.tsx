@@ -48,6 +48,18 @@ export default function Home() {
       ],
     },
     {
+      role: 'Information Technology Consultant',
+      company: 'Area71 Venture Limited, Dhaka',
+      period: 'Jan 2025 - May 2026',
+      highlights: [
+        'Redesigned on-premises infrastructure for 200 users with redundant switches, firewalls, and failover architecture to support 99.9% uptime.',
+        'Implemented Google Workspace security controls including DLP, 2FA/MFA enforcement, and advanced phishing protection.',
+        'Established secure Bangladesh–UK site-to-site tunnels for low-latency access to AWS resources.',
+        'Deployed next-generation firewalls and privileged access management to enforce zero-trust access and reduce insider threats.',
+        'Led end-to-end infrastructure re-engineering, modernizing network topology and consolidating legacy systems.',
+      ],
+    },
+    {
       role: 'Senior System Engineer',
       company: 'BRACIT Services Limited, Dhaka',
       period: 'Jan 2023 - Jun 2024',
@@ -66,6 +78,18 @@ export default function Home() {
         'Administered Linux and Windows Server environments.',
         'Delivered automation with Shell, Expect, Sed, and Awk.',
         'Implemented SSL/TLS at scale with hardening and migrations.',
+      ],
+    },
+    {
+      role: 'DevOps Developer',
+      company: 'NeovoTech Limited, Uttara, Dhaka',
+      period: 'Jul 2022 - Jan 2023',
+      highlights: [
+        'Managed and optimized AWS infrastructure including EC2, Lambda, RDS, and DynamoDB with a focus on availability, cost, and security.',
+        'Built CI/CD pipelines with AWS CodePipeline, CodeBuild, and Elastic Beanstalk for Node.js web application deployments.',
+        'Managed GitHub repositories, branching strategies, and pull-request workflows to streamline software delivery.',
+        'Administered on-premises Windows infrastructure, Active Directory, file servers, Azure AD, Intune, and PowerShell-based hybrid-cloud integrations.',
+        'Implemented ELK monitoring for real-time observability, log analysis, and proactive issue resolution across serverless and EC2 environments.',
       ],
     },
     {
