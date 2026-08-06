@@ -39,7 +39,7 @@ export default function Home() {
     {
       role: 'Lead System Engineer',
       company: 'BRACIT Services Limited, Dhaka',
-      period: 'Jul 2024 - Present',
+      period: 'Jul 2024 - Jul 2026',
       highlights: [
         'Lead System & Network Engineering teams and plan capacity upgrades.',
         'Administer GitLab and Harbor registries, optimize CI/CD runners.',
