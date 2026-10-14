@@ -2,5 +2,7 @@ node_modules/
 .next/
 out/
 .env*
+/data/*.json
+/data/backups/
 *.log
 .DS_Store
