@@ -4,18 +4,19 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && SKIP_NEXT_APP_BUILD=true opennextjs-cloudflare build",
     "start": "next start",
     "seo:check": "bash scripts/check-seo.sh"
   },
   "dependencies": {
+    "framer-motion": "^11.0.0",
     "next": "^15.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "framer-motion": "^11.0.0",
     "react-icons": "^5.0.0"
   },
   "devDependencies": {
+    "@opennextjs/cloudflare": "^1.20.11",
     "@types/node": "^22.0.0",
     "@types/react": "^18.0.0",
     "typescript": "^5.0.0"
