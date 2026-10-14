@@ -20,7 +20,8 @@ export async function PUT(request: NextRequest) {
   try {
     await writeSiteContent(content);
     return NextResponse.json({ saved: true, savedAt: new Date().toISOString() });
-  } catch {
-    return NextResponse.json({ error: 'Unable to save content.' }, { status: 500 });
+  } catch (error) {
+    console.error('Unable to save site content:', error);
+    return NextResponse.json({ error: 'The server could not persist the content. Please retry.' }, { status: 500 });
   }
 }

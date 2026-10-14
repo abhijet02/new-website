@@ -1,2 +1,0 @@
-# Cloudflare Workers static assets only supports relative-path redirects here.
-# Configure host/protocol redirects (http->https, www->apex) in Cloudflare Redirect Rules.

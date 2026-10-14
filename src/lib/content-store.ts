@@ -6,8 +6,34 @@ import { defaultSiteContent, SiteContent } from './site-content';
 const dataDirectory = path.join(process.cwd(), 'data');
 const contentPath = path.join(dataDirectory, 'site-content.json');
 const backupDirectory = path.join(dataDirectory, 'backups');
+const contentKey = 'site-content';
+const backupKey = 'site-content:previous';
+
+type ContentStore = {
+  get(key: string): Promise<string | null>;
+  get<T>(key: string, type: 'json'): Promise<T | null>;
+  put(key: string, value: string): Promise<void>;
+};
+
+async function getContentStore(): Promise<ContentStore | null> {
+  try {
+    const { getCloudflareContext } = await import('@opennextjs/cloudflare');
+    const { env } = await getCloudflareContext({ async: true });
+    return (env as CloudflareEnv & { SITE_CONTENT?: ContentStore }).SITE_CONTENT ?? null;
+  } catch {
+    // `next dev` and `next start` do not provide Cloudflare bindings. Keep the
+    // file-backed store for local development and tests.
+    return null;
+  }
+}
 
 export async function readSiteContent(): Promise<SiteContent> {
+  const store = await getContentStore();
+  if (store) {
+    const content = await store.get<SiteContent>(contentKey, 'json');
+    return content ?? defaultSiteContent;
+  }
+
   try {
     const raw = await fs.readFile(contentPath, 'utf8');
     return JSON.parse(raw) as SiteContent;
@@ -18,6 +44,15 @@ export async function readSiteContent(): Promise<SiteContent> {
 }
 
 export async function writeSiteContent(content: SiteContent) {
+  const store = await getContentStore();
+  if (store) {
+    const serialized = JSON.stringify(content);
+    const existing = await store.get(contentKey);
+    if (existing) await store.put(backupKey, existing);
+    await store.put(contentKey, serialized);
+    return;
+  }
+
   await fs.mkdir(dataDirectory, { recursive: true });
   await fs.mkdir(backupDirectory, { recursive: true });
 

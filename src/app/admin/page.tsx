@@ -46,8 +46,20 @@ export default function AdminPage() {
   };
   const save = async () => {
     if (!content) return; setSaving(true); setMessage('Saving…');
-    const response = await fetch('/api/admin/content', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(content) });
-    setSaving(false); setMessage(response.ok ? 'Saved and published.' : 'Could not save. Please review the fields.');
+    try {
+      const response = await fetch('/api/admin/content', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(content) });
+      const result = await response.json().catch(() => ({}));
+      if (response.status === 401) {
+        setContent(null); setAuthenticated(false);
+        setMessage('Your session expired. Please sign in again.');
+      } else {
+        setMessage(response.ok ? 'Saved and published.' : result.error || 'Could not save. Please retry.');
+      }
+    } catch {
+      setMessage('Could not reach the server. Check your connection and retry.');
+    } finally {
+      setSaving(false);
+    }
   };
   const logout = async () => { await fetch('/api/admin/logout', { method: 'POST' }); setContent(null); setAuthenticated(false); };
   const setSection = <K extends keyof SiteContent>(section: K, value: SiteContent[K]) => setContent(current => current ? ({ ...current, [section]: value }) : current);
